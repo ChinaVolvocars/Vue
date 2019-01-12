@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>计算属性和侦听器</title>
+	<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+</head>
+<body>
+
+<div>
+	{{message. message.split('').reverse().join('') }}
+</div>
+<div id="msi">
+	<p>一个消息："{{ message }}" </p>
+	<p>Computed reversed message: "{{ reversedMessage }}"</p>
+</div>
+
+
+<div id="reversed">
+	<p> {{message}}</p>
+	<p> {{message1}}</p>
+</div>
+
+<div id="demo">
+	{{fullName}}
+</div>
+sc delete mysql
+mysqld -remove
+net stop mysql
+D:\DevelopmentTools\mysql-5.5.59-winx64\bin\mysqld-nt -remove
+<!--侦听器-->
+<div id="watch-example">
+	<p>
+		Ask a yes/no question:
+		<input v-model="question">
+	</p>
+	<p>{{answer}}</p>
+</div>
+<script>
+  new Vue({
+    el: '#watch-example',
+    data: {
+      question: '',
+      answer: 'I cannot give you an answer until you ask a question!'
+    },
+    watch: {
+      question: function (newQuestion, oldQuestion) {
+        this.answer = 'Waiting for you to stop typing...';
+        this.debouncedGetAnswer()
+      }
+    },
+    created: function () {
+      this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+    },
+    methods: {
+      getAnswer: function () {
+        if (this.question.indexOf('?') === -1) {
+          this.answer = 'Questions usually contain a question mark. ;-)'
+          return
+        }
+        this.answer = 'thinking...';
+        let vm = this;
+        axios.get('https://yesno.wtf/api')
+          .then(function (response) {
+            vm.answer = _.capitalize(response.data.answer)
+          })
+          .catch(function (error) {
+            vm.answer = 'Error! Could not reach the API. ' + error
+          })
+      }
+    }
+  });
+
+
+  new Vue({
+    el: '#msi',
+    data: {
+      message: 'hello'
+    },
+    computed: {
+      reversedMessage: function () {
+        return this.message.split('').reverse().join('')
+      }
+    }
+  });
+
+  new Vue({
+    el: '#reversed',
+    data: {
+      message: 'hello china!'
+    },
+    computed: {
+      message1: function () {
+        return this.message.length
+      }
+    }
+
+  });
+  let vue = new Vue({
+    el: '#demo',
+    data: {
+      firstName: 'foo',
+      lastName: 'bar',
+      fullName: 'Foo bar'
+    },
+    /* watch: {
+			 firstName: function (val) {
+				 this.fullName = val + '' + this.lastName
+			 },
+			 lastName: function (val) {
+				 this.fullName = this.firstName + val
+			 }
+		 }*/
+
+    // computed: {
+    //   fullName: function () {
+    //     return this.firstName + '' + this.lastName
+    //   }
+    // }
+
+    computed: {
+      fullName: {
+        get: function () {
+          return this.firstName + '' + this.lastName
+        },
+
+        set: function (newValue) {
+          let names = newValue.split(' ')
+          this.firstName = names[0]
+          this.lastName = names[names.length - 1]
+        }
+      }
+    }
+  });
+
+  vue.fullName = ' root@localhost: YasAOw_5yOY)'
+
+</script>
+
+
+
+</body>
+</html>

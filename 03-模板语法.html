@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>vue实例</title>
+	<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+
+<span id="app" v-on:click="sen">message：{{message}}</span>
+<br>
+<span id="app2" v-on:click="kill" v-once>不会改变：{{message}}</span>
+
+<div id="rawHtml">
+	<p>Using mustaches: {{ rawHtml }}</p>
+	<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+</div>
+
+
+<script>
+  let a = 1;
+  new Vue({
+      el: '#app',
+      data: {
+        message: 'hangzhou library'
+      },
+      methods: {
+        sen: function () {
+          this.message = a++;
+        }
+      }
+
+    }
+  );
+  new Vue({
+    el: '#app2',
+    data: {
+      message: '不会发生改变'
+    },
+    methods: {
+      kill: function () {
+        this.message = a++;
+      }
+    }
+  });
+
+  new Vue({
+    el: '#rawHtml',
+    data: {
+      rawHtml: '<span  v-on:click="kill" v-once>不会改变：</span>\n'
+    }
+  });
+</script>
+</body>
+</html>

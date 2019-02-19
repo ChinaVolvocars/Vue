@@ -4,17 +4,152 @@
 <head>
     <meta charset="UTF-8">
     <title>vue实例</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
 
+    <div id="app">
+        <p>{{foo}}</p>
+        <button v-on:click="foo='baz'">改变</button>
+    </div>
+
+    <div id="ex"></div>
+
 
     <script>
 
-        let vue = new Vue({
-            //do you somthing
+        //Vue 的响应式系统
+        // let vue = new Vue({
+        //     //do you somthing
 
+        // })
+
+        //数据与方法
+
+        //数据对象
+        let data = { a: 1 }
+
+        //将对象加入到vm实例中
+        let vm = new Vue({
+            data: data
         })
+
+        // CTRL + SHIFT + K 是删除
+        let vmBoolean = vm.a == data.a
+        console.log(123456)
+        console.log(vmBoolean)
+
+        //设置属性 影响原始数据
+        vm.a = 22
+        let dataA = data.a
+        console.log(dataA)
+
+        //原始数据修改 影响vm中的属性
+        data.a = 33
+        let vmA = vm.a
+        console.log(vmA)
+
+        //这个新的属性不会改变视图，不会发生视图的更新
+        vm.b = 'yyyy'
+
+        //  改变视图用这种，提前建好属性
+        let data_it = {
+            num: '',
+            add: '',
+            month: '',
+            day: '',
+            time: '',
+            vb: []
+        }
+
+        //object.freeze() 阻止修改现有的属性，也就是Vue响应式系统无法再追踪变化
+
+        let obj = {
+            foo: 'bar'
+        }
+        //阻止修改现有属性，也就是说无法对视图进行更新
+        Object.freeze(obj)
+        new Vue({
+            el: '#app',
+            data: obj
+        })
+
+
+        //除了数据属性 ，还有 前缀 $ ，用于区分Vue的属性和用户定义的属性
+        let da = { a: 1 }
+        let vu = new Vue({
+            el: '#ex',
+            data: da
+        })
+
+        let booVu = vu.$data === da
+        let booEl = vu.$el === document.getElementById('ex')
+
+        console.log(booVu)
+        console.log(booEl)
+
+        //此方法将在da={a:1} 发生改变之后调用
+        vu.$watch('a', function (newValue, oldValue) {
+            console.log('newValue：' + newValue)
+            console.log('oldValue：' + oldValue)
+            console.log('a的值发生改变-----回调------')
+        })
+
+        //===========实例生命周期钩子============
+
+        //created 钩子可以用来在一个实例被创建之后执行代码
+
+        let vueCreated = new Vue({
+            data: {
+                a: 1
+            },
+            beforeCreate: function () {
+                console.log('beforeCreate')
+            },
+            created: function () {
+                console.log('created 钩子可以用来在一个实例被创建之后执行代码')
+                console.log('a 是：' + this.a)
+            },
+            beforeMount: function () {
+
+            },
+            mounted: function () {
+
+            },
+            beforeUpdate: function () {
+
+            },
+
+            updated: function () {
+
+            },
+
+            activated: function () {
+
+            },
+
+            deactivated: function () {
+
+            },
+
+            beforeDestroy: function () {
+
+            },
+            destroyed: function () {
+
+            },
+
+            errorCaptured: (err, vm, info) => {
+
+            },
+        })
+
+
+
+
+
+
 
     </script>
 

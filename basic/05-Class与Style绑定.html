@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Class与Style绑定</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+	<!-- 
+		操作元素的class列表和内联样式的绑定
+		使用v-bind进行处理，再将v-bind用户class和style时做了专门的增强，处理字符串还可以是数组和对象
+	 -->
+	<!--
+		绑定 HTML Class
+			对象语法
+ 	-->
+	<div v-bind="{active:isActive}"></div>
+
+	<!-- 与普通的class共存，在对象中传入更多属性来动态切换多个 class-->
+	<div class="static" v-bind="{active:isActive,'text-danger':hasError }">
+
+
+	</div>
+
+	<script>
+
+	
+
+	</script>
+
+
+</body>
+
+</html>

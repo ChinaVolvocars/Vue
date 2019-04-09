@@ -1,25 +1,86 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <title>列表渲染</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
 
-    <!--
+<!--
 
+    1、简历
+    2、杭州地铁的招商-餐饮大纲
+    3、k-12 教育标准
+    4、复习
+    5、浙江省居住证申请
+
+ -->
+
+<ul id="example-1">
+    <li v-for="item in items">
+        {{ item.me }}
+    </li>
+</ul>
+
+<ul id="example-2">
+    <li v-for="(item, index) in items">
+        {{ parentMessage }} - {{ index }} - {{ item.message }}
+    </li>
+</ul>
+
+<<<<<<< HEAD
         1、简历
         2、杭州地铁的招商-餐饮大纲
         3、k-12 教育标准
         4、复习
         5、浙江省居住证申请
+||||||| merged common ancestors
+        1、简历 
+        2、杭州地铁的招商-餐饮大纲
+        3、k-12 教育标准
+        4、复习
+        5、浙江省居住证申请
+=======
+<script>
+>>>>>>> 25941ec12e91e447c61177b12b3ea5c52ff64aef
 
-     -->
+    var example2 = new Vue({
+        el: '#example-2',
+        data: {
+            parentMessage: 'Parent',
+            items: [
+                {message: 'Foo'},
+                {message: 'Bar'}
+            ]
+        }
+    })
 
 
+<<<<<<< HEAD
      
 
 
+||||||| merged common ancestors
+=======
+    new Vue({
+        el: '#example-1',
+        data: {
+            items: [
+                {me: '北京'},
+                {me: '杭州'}
+            ]
+        }
+
+    })
+
+
+</script>
+
+>>>>>>> 25941ec12e91e447c61177b12b3ea5c52ff64aef
 
 </body>
+
 </html>
